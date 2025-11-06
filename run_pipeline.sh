@@ -1,18 +1,18 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+set -e
 
-RAW_TRAIN=${1:-data/raw/train.csv}
-PREP=data/interim/train_preprocessed.parquet
-FEAT=data/processed/train_features.parquet
-MODEL=models/logreg.joblib
-PRED=artifacts/preds.csv
+echo "🚀 Running full Titanic MLOps pipeline..."
 
-mkdir -p data/interim data/processed models artifacts
+# 1. Preprocess
+python scripts/preprocess.py --input data/raw/train.csv --output data/interim/train_preprocessed.parquet
 
-python scripts/preprocess.py --input "$RAW_TRAIN" --output "$PREP"
-python scripts/featurize.py --input "$PREP" --output "$FEAT"
-python scripts/train.py --train "$FEAT" --target Survived --model-out "$MODEL" --model logreg
-python scripts/evaluate.py --val "$FEAT" --target Survived --model-in "$MODEL"
-python scripts/predict.py --input "$FEAT" --model-in "$MODEL" --pred-out "$PRED"
+# 2. Feature engineering
+python scripts/featurize.py --input data/interim/train_preprocessed.parquet --output data/processed/train_features.parquet
 
-echo "Done. Predictions at $PRED"
+# 3. Train model
+python scripts/train.py --train data/processed/train_features.parquet --target Survived --model-out data/models/model.joblib --model logreg
+
+# 4. Evaluate
+python scripts/evaluate.py --model data/models/model.joblib --data data/processed/train_features.parquet --target Survived
+
+echo "✅ Pipeline completed successfully!"

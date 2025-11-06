@@ -1,1 +1,27 @@
-Answer the lab questions here. Be concise and justify design choices (interfaces, model swapability, packaging).
+
+1. What was the purpose of this lab?
+   → To modularize a Titanic ML project using classes and scripts that form a reproducible MLOps pipeline.
+
+2. How is the code organized?
+   → Code is structured into an `src/` package with `preprocessing`, `features`, and `models` modules, and separate CLI scripts.
+
+3. What does each main script do?
+   → preprocess.py: cleans raw data  
+     featurize.py: creates model-ready features  
+     train.py: trains the model  
+     evaluate.py: evaluates metrics  
+     predict.py: runs inference  
+
+4. What models were implemented?
+   → Logistic Regression, Random Forest, and XGBoost (optional).
+
+5. What tools and practices were used?
+   → Git branches + PR workflow, Python packaging (`src` layout), and modular OOP design.
+
+6. How can the pipeline be improved?
+   → Automate feature consistency, add validation/test split, and implement MLflow tracking.
+
+7. What did you learn?
+   → How to turn a notebook ML workflow into a maintainable and reproducible class-based project.
+
+
