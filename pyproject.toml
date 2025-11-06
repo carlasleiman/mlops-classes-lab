@@ -1,0 +1,21 @@
+
+[project]
+name = "mlops-classes-starter"
+version = "0.1.0"
+description = "From scripts to classes: Titanic example with src layout and CLIs"
+requires-python = ">=3.9"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "scikit-learn>=1.3",
+    "pyarrow>=14.0",
+    "joblib>=1.3",
+    "xgboost>=2.0; platform_system != 'Emscripten'",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+# Use uv for fast installs & pinning via lockfile if desired.
